@@ -64,8 +64,7 @@ public class Cadastro {
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
-	
-	
-	
-	
+	public boolean isNascido() {
+		return Calendar.getInstance().after(dataNascimento);
+	}
 }

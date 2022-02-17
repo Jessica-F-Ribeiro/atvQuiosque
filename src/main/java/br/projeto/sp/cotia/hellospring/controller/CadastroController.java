@@ -40,6 +40,6 @@ public class CadastroController {
 	public String alterar(long idCadastro, Model model) {
 		DaoCadastro dao = new DaoCadastro();
 		model.addAttribute("cadastro", dao.consulta(idCadastro));
-		return "forward:formCadastro";
+		return "forward:formcadastro";
 	}
 }
