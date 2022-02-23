@@ -10,6 +10,12 @@ import br.projeto.sp.cotia.hellospring.model.Cadastro;
 @Controller
 public class CadastroController {
 	
+	@RequestMapping("formCadastro") // url
+	public String form(Model model) {
+		//model.addAttribute("tipos", TipoProduto.values());
+		return "formcadastro"; // pasta view
+	}
+	
 	@RequestMapping("salvarCadastro")
 	public String salvarCadastro(Cadastro cadastro) {
 		System.out.println(cadastro.getNome());
@@ -40,6 +46,6 @@ public class CadastroController {
 	public String alterar(long idCadastro, Model model) {
 		DaoCadastro dao = new DaoCadastro();
 		model.addAttribute("cadastro", dao.consulta(idCadastro));
-		return "forward:formcadastro";
+		return "forward:formCadastro";
 	}
 }

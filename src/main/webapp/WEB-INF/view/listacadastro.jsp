@@ -20,20 +20,20 @@
 	 		<th>Data de Nascimento</th>
 	 		<th>Gênero</th>
 	 		<th>Excluir</th>
-	 		<th>Alterar</th>
 	 		
 	 	</tr>
-	 	<c:forEach items="${produtos }" var="p">
+	 	<c:forEach items="${cadastros }" var="c">
 	 	<tr>
-	 		<td>${p.id }</td>
-	 		<td>${p.nome }</td>
-	 		<td>${p.endereco }</td>
-	 		<td>${p.telefone }</td>
-	 		<td>${p.email }</td>
-	 		<td>${p.prodInteresse }</td>
-	 		<td><fmt:formatDate pattern="dd/MM/yyyy" value="${p.dataNascimento.time }"/></td>
-	 		<td></td>
-	 		<td><a href="excluirCliente?idCliente=${p.id }" onclick="return confirm('Deseja Excluir')">Excluir</a></td>
+	 		<td>${c.id }</td>
+	 		<td>${c.nome }</td>
+	 		<td>${c.endereco }</td>
+	 		<td>${c.telefone }</td>
+	 		<td>${c.email }</td>
+	 		<td>${c.prodInteresse }</td>
+	 		<td><fmt:formatDate pattern="dd/MM/yyyy" value="${c.dataNascimento.time }"/></td>
+	 		<td>${c.genero }</td>
+	 		<td><a href="alterarCliente?idCliente=${c.id }">Alterar</a></td>
+	 		<td><a href="excluirCliente?idCliente=${c.id }" onclick="return confirm('Deseja Excluir')">Excluir</a></td>
 	 	</tr>
 	 	</c:forEach>
 	</table>
