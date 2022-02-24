@@ -6,13 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.projeto.sp.cotia.hellospring.dao.DaoCadastro;
 import br.projeto.sp.cotia.hellospring.model.Cadastro;
+import br.projeto.sp.cotia.hellospring.model.TipoGenero;
 
 @Controller
 public class CadastroController {
 	
 	@RequestMapping("formCadastro") // url
 	public String form(Model model) {
-		//model.addAttribute("tipos", TipoProduto.values());
+		model.addAttribute("tipos", TipoGenero.values());
 		return "formcadastro"; // pasta view
 	}
 	
@@ -27,7 +28,11 @@ public class CadastroController {
 		System.out.println(cadastro.getGenero());
 		
 		DaoCadastro dao = new DaoCadastro();
-		dao.inserir(cadastro);
+			if(cadastro.getId() == null) {
+				dao.inserir(cadastro);
+			}else {
+				dao.alterar(cadastro);
+			}
 		return "redirect:listarCadastro";
 	}
 	@RequestMapping("listarCadastro")

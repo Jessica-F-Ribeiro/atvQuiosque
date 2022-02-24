@@ -5,7 +5,7 @@ import java.util.Calendar;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class Cadastro {
-	private long id;
+	private Long id;
 	private String nome;
 	private String endereco;
 	private String telefone;
@@ -13,13 +13,13 @@ public class Cadastro {
 	private String prodInteresse;
 	@DateTimeFormat(pattern = "yyyy-MM-dd" )
 	private Calendar dataNascimento;
-	private String genero;
+	private TipoGenero genero;
 	
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNome() {
@@ -58,13 +58,14 @@ public class Cadastro {
 	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	public String getGenero() {
-		return genero;
-	}
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
+	
 	public boolean isNascido() {
 		return Calendar.getInstance().after(dataNascimento);
+	}
+	public TipoGenero getGenero() {
+		return genero;
+	}
+	public void setGenero(TipoGenero genero) {
+		this.genero = genero;
 	}
 }

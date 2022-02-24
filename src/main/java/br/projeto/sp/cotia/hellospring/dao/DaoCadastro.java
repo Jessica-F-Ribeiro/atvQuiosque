@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import br.projeto.sp.cotia.hellospring.model.Cadastro;
+import br.projeto.sp.cotia.hellospring.model.TipoGenero;
 
 public class DaoCadastro {
 	private Connection conexao;
@@ -28,7 +29,7 @@ public class DaoCadastro {
 			stmt.setString(4, cadastro.getEmail());
 			stmt.setString(5, cadastro.getProdInteresse());
 			stmt.setDate(6, new Date(cadastro.getDataNascimento().getTimeInMillis()));
-			stmt.setString(7, cadastro.getGenero());
+			stmt.setInt(7, cadastro.getGenero().ordinal());
 			stmt.execute();
 			conexao.close();
 		} catch (SQLException e) {
@@ -46,7 +47,7 @@ public class DaoCadastro {
 			stmt.setString(4, cadastro.getEmail());
 			stmt.setString(5, cadastro.getProdInteresse());
 			stmt.setDate(6, new Date(cadastro.getDataNascimento().getTimeInMillis()));
-			stmt.setString(7, cadastro.getGenero());
+			stmt.setInt(7, cadastro.getGenero().ordinal());
 			stmt.setLong(8, cadastro.getId());
 			stmt.execute();
 			conexao.close();
@@ -69,7 +70,9 @@ public class DaoCadastro {
 				p.setTelefone(rs.getString("telefone"));
 				p.setEmail(rs.getString("email"));
 				p.setProdInteresse(rs.getString("prodInteresse"));
-				p.setGenero(rs.getString("genero"));
+				int posEnum = rs.getInt("genero");
+				TipoGenero tipo = TipoGenero.values()[posEnum];
+				p.setGenero(tipo);
 				Calendar nascimento = Calendar.getInstance();
 				Date dataBd = rs.getDate("dataNascimento");
 				nascimento.setTimeInMillis(dataBd.getTime());
@@ -100,7 +103,9 @@ public class DaoCadastro {
 				p.setTelefone(rs.getString("telefone"));
 				p.setEmail(rs.getString("email"));
 				p.setProdInteresse(rs.getString("prodInteresse"));
-				p.setGenero(rs.getString("genero"));
+				int posEnum = rs.getInt("genero");
+				TipoGenero tipo = TipoGenero.values()[posEnum];
+				p.setGenero(tipo);
 				Calendar nascimento = Calendar.getInstance();
 				Date dataBd = rs.getDate("dataNascimento");
 				nascimento.setTimeInMillis(dataBd.getTime());

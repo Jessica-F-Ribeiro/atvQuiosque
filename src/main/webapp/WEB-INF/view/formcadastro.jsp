@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,42 +31,43 @@
         </header>
         <div class="formulario">
             <form action="salvarCadastro">
+            <input type="hidden" name="id" value="${cadastro.id }">
                 <section>
                     <input type="text" name="nome" required placeholder="NOME" class="inputs_form" value="${cadastro.nome }">
                 </section>
                 <br>
                 <br>
                 <section>
-                    <input type="email" name="email" required placeholder="EMAIL" class="inputs_form">
+                    <input type="email" name="email" required placeholder="EMAIL" class="inputs_form" value="${cadastro.email }">
                 </section>
                 <br>
                 <br>
                 <section>
-                    <input type="number" name="telefone" required placeholder="CELULAR" class="inputs_form">
+                    <input type="number" name="telefone" required placeholder="CELULAR" class="inputs_form" value="${cadastro.telefone }">
                 </section>
                 <br>
                 <br>
                 <section>
-                    <input type="text" name="endereco" required placeholder="ENDEREÇO" class="inputs_form">
+                    <input type="text" name="endereco" required placeholder="ENDEREÇO" class="inputs_form" value="${cadastro.endereco }">
                 </section>
                 <br>
                 <br>
                 <section class="section_genero">
-                    <div style="font-size: 15px;">
-                    <label style="color: rgba(0, 0, 0, 0.562);">gênero:</label>
-                        <input type="radio" name="genero" class="radio" style="color: black;"> Masculino
-                        <input type="radio" name="genero" class="radio"> Feminino
-                    </div>
+                    <select name="genero">
+						<c:forEach items="${tipos }" var="t">
+							<option <c:if test="${cadastro.genero == t }">selected</c:if> value="${t }">${t.toString() }</option>
+						</c:forEach>
+					</select>
                 </section>
                 <br>
                 <br>
                 <section>
-                    <input type="date" name="dataNascimento" required>
+                    <input type="date" name="dataNascimento" required value="<fmt:formatDate pattern="yyyy-MM-dd" value="${cadastro.dataNascimento.time }"/>">
                 </section>
                 <br>
                 <br>
                 <section>
-                    <input type="text" name="prodInteresse" required placeholder="PRODUTO" class="inputs_form">
+                    <input type="text" name="prodInteresse" required placeholder="PRODUTO" class="inputs_form" value="${cadastro.prodInteresse }" >
                 </section>
 
                 <button type="submit" id="botao_cadastrar">CADASTRAR</button>
