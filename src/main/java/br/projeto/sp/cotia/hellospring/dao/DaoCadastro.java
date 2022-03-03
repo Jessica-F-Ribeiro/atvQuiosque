@@ -14,12 +14,14 @@ import br.projeto.sp.cotia.hellospring.model.TipoGenero;
 
 public class DaoCadastro {
 	private Connection conexao;
-	
+
 	public DaoCadastro() {
 		conexao = ConnectionFactory.conectar();
 	}
+
 	public void inserir(Cadastro cadastro) {
-		String sql = "insert into tb_cadastro" +"(nome, endereco, telefone, email, prodInteresse, dataNascimento, genero)" +"values (?,?,?,?,?,?,?)";
+		String sql = "insert into tb_cadastro"
+				+ "(nome, endereco, telefone, email, prodInteresse, dataNascimento, genero)" + "values (?,?,?,?,?,?,?)";
 		PreparedStatement stmt;
 		try {
 			stmt = conexao.prepareStatement(sql);
@@ -36,7 +38,8 @@ public class DaoCadastro {
 			throw new RuntimeException(e);
 		}
 	}
-	public void alterar(Cadastro cadastro) {
+
+	public void atualizar(Cadastro cadastro) {
 		String sql = "update tb_cadastro set nome = ?, endereco = ?, telefone = ?, email = ?, prodInteresse = ?, dataNascimento = ?, genero = ? where id = ?";
 		PreparedStatement stmt;
 		try {
@@ -55,7 +58,8 @@ public class DaoCadastro {
 			throw new RuntimeException(e);
 		}
 	}
-	public List<Cadastro> listar(){
+
+	public List<Cadastro> listar() {
 		String sql = "select * from tb_cadastro order by nome asc";
 		List<Cadastro> lista = new ArrayList<Cadastro>();
 		PreparedStatement stmt;
@@ -70,14 +74,15 @@ public class DaoCadastro {
 				p.setTelefone(rs.getString("telefone"));
 				p.setEmail(rs.getString("email"));
 				p.setProdInteresse(rs.getString("prodInteresse"));
-				int posEnum = rs.getInt("genero");
-				TipoGenero tipo = TipoGenero.values()[posEnum];
-				p.setGenero(tipo);
 				Calendar nascimento = Calendar.getInstance();
 				Date dataBd = rs.getDate("dataNascimento");
 				nascimento.setTimeInMillis(dataBd.getTime());
 				p.setDataNascimento(nascimento);
 				lista.add(p);
+				int posEnum = rs.getInt("genero");
+				TipoGenero tipo = TipoGenero.values()[posEnum];
+				p.setGenero(tipo);
+
 			}
 			rs.close();
 			stmt.close();
@@ -87,7 +92,8 @@ public class DaoCadastro {
 			throw new RuntimeException(e);
 		}
 	}
-	public Cadastro consulta(long idCadastro) {
+
+	public Cadastro buscar(Long idCadastro) {
 		String sql = "select * from tb_cadastro where id = ?";
 		Cadastro p = null;
 		PreparedStatement stmt;
@@ -103,13 +109,14 @@ public class DaoCadastro {
 				p.setTelefone(rs.getString("telefone"));
 				p.setEmail(rs.getString("email"));
 				p.setProdInteresse(rs.getString("prodInteresse"));
-				int posEnum = rs.getInt("genero");
-				TipoGenero tipo = TipoGenero.values()[posEnum];
-				p.setGenero(tipo);
 				Calendar nascimento = Calendar.getInstance();
 				Date dataBd = rs.getDate("dataNascimento");
 				nascimento.setTimeInMillis(dataBd.getTime());
 				p.setDataNascimento(nascimento);
+				int posEnum = rs.getInt("genero");
+				TipoGenero tipo = TipoGenero.values()[posEnum];
+				p.setGenero(tipo);
+
 			}
 			rs.close();
 			stmt.close();
@@ -119,6 +126,7 @@ public class DaoCadastro {
 			throw new RuntimeException(e);
 		}
 	}
+
 	public void excluir(long id) {
 		String sql = "delete from tb_cadastro where id = ?";
 		PreparedStatement stmt;
